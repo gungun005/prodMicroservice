@@ -9,4 +9,4 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/', require('./routes/serverRoutes'));
-app.listen(process.env.PORT || 8200);
+app.listen(process.env.PORT || 8700);
