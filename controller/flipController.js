@@ -1,29 +1,31 @@
 const flipServices=require('../services/flipServices');
 
-const getFlipAllProduct=(req,res)=>{
-    let getFlipAllProduct=flipServices.getFlipAllProduct(req.body);
+const getFlipAllProduct= async (req,res) => {
+    let getFlipAllProduct=await flipServices.getFlipAllProduct(req.body);
     res.send( getFlipAllProduct);
 };
-const getFlipProduct=(req,res)=>{
+const getFlipProduct= async (req,res)=>{
     console.log("yeh wala kaam krha hae");
     console.log(req.body);
-    let  getFlipProduct=flipServices.getFlipProduct(req.body);
+    let  getFlipProduct=await flipServices.getFlipProduct(req.body);
     res.send(getFlipProduct);
 };
-const postFlipProduct=(req,res)=>{
-    let postFlipProduct=flipServices.postFlipProduct(req.body);
+const postFlipProduct= async(req,res)=>{
+    console.log("in controller");
+    console.log(req.body);
+    let postFlipProduct=await flipServices.postFlipProduct(req.body);
     res.send(postFlipProduct);
 };
-const deleteFlipProduct=(req,res)=>{
-    let deleteFlipProduct=flipServices.deleteFlipProduct(req.body);
+const deleteFlipProduct= async (req,res)=>{
+    let deleteFlipProduct= await flipServices.deleteFlipProduct(req.body);
     res.send( deleteFlipProduct);
 };
-const updateFlipProduct=(req,res)=>{
-    let updateFlipProduct=flipServices.updateFlipProduct(req.body);
+const updateFlipProduct= async (req,res)=>{
+    let updateFlipProduct= await flipServices.updateFlipProduct(req.body);
     res.send( updateFlipProduct);
 };
-const  getFlipAllProductById =(req,res)=>{
-    let  getFlipAllProductById=flipServices.getFlipAllProductById(req.body);
+const  getFlipAllProductById = async (req,res)=>{
+    let  getFlipAllProductById= await flipServices.getFlipAllProductById(req.body);
     res.send( getFlipAllProductById);
 };
     
