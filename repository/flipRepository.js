@@ -83,7 +83,7 @@ const deleteFlipProduct=async(body)=>{
         await client.connect()
         const db = client.db("flipComInfo");
         const coll = db.collection("flipComInfo");
-        const data = await coll.delete(searchOptions)
+        const data = await coll.deleteOne(searchOptions)
         console.log(data)
     }
     catch(err){
@@ -139,6 +139,30 @@ const  getFlipAllProductById =async(body)=>{
         await client.close()
     } 
 };
+const getFlipSearchProduct=async(body)=>{
+console.log("searching");
+// try{
+//     await client.connect()
+//     const db = client.db("flipComInfo");
+//     const coll = db.collection("flipComInfo");
+//     const data = await coll.find({
+//         "$or":[
+//             {
+//                 product:{$regex:body}
+//             }
+//         ]
+//     })
+//     console.log(data)
+//     return data
+// }
+// catch(err){
+//     console.log("Error occurred")
+//     return err;
+// }
+// finally{
+//     await client.close()
+// } 
+};
 
 module.exports={
     getFlipAllProduct,
@@ -146,5 +170,6 @@ module.exports={
     postFlipProduct,
     deleteFlipProduct,
     updateFlipProduct,
-    getFlipAllProductById
+    getFlipAllProductById,
+    getFlipSearchProduct
 }
