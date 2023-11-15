@@ -28,6 +28,13 @@ const  getFlipAllProductById =(body)=>{
     let  getFlipAllProductById=flipRepository.getFlipAllProductById(body);
     return  getFlipAllProductById;
 };
+
+const getFlipSearchProduct =  (body)=>{
+    console.log("in service");
+    console.log(body);
+    let  getFlipSearchProduct =  flipRepository.getFlipSearchProduct(body);
+    return( getFlipSearchProduct);
+};
     
     module.exports={
         getFlipAllProduct,
@@ -35,5 +42,6 @@ const  getFlipAllProductById =(body)=>{
         postFlipProduct,
         deleteFlipProduct,
         updateFlipProduct,
-        getFlipAllProductById
+        getFlipAllProductById,
+        getFlipSearchProduct
     }
