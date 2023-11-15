@@ -28,6 +28,11 @@ const  getFlipAllProductById = async (req,res)=>{
     let  getFlipAllProductById= await flipServices.getFlipAllProductById(req.body);
     res.send( getFlipAllProductById);
 };
+
+const getFlipSearchProduct = async (req,res)=>{
+    let  getFlipSearchProduct= await flipServices.getFlipSearchProduct(req.body);
+    res.send( getFlipSearchProduct);
+};
     
     module.exports={
         getFlipAllProduct,
@@ -35,5 +40,6 @@ const  getFlipAllProductById = async (req,res)=>{
         postFlipProduct,
         deleteFlipProduct,
         updateFlipProduct,
-        getFlipAllProductById
+        getFlipAllProductById,
+        getFlipSearchProduct
     }
