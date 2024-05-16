@@ -14,4 +14,7 @@ router.route('/product')
 
 router.route('/product/id')
     .get(flipController.getFlipAllProductById)
+
+router.route('/search')
+      .get(flipController.getFlipSearchProduct)
     module.exports = router;
