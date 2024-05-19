@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const flipController = require('../controller/flipController');
+const validate = require('../validations/product.validation');
 
 router.route('/')
       .get(flipController.getFlipAllProduct)
@@ -8,7 +9,7 @@ router.route('/')
     
 router.route('/product')
       .get(flipController.getFlipProduct)
-      .post(flipController.postFlipProduct)
+      .post(validate.productSchemaValidation, flipController.postFlipProduct)
       .delete(flipController.deleteFlipProduct)
       .patch(flipController.updateFlipProduct)
 
@@ -17,4 +18,5 @@ router.route('/product/id')
 
 router.route('/search')
       .get(flipController.getFlipSearchProduct)
-    module.exports = router;
+
+module.exports = router;

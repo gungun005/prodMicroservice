@@ -3,8 +3,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const mongoose = require("mongoose");
+const { resolve, reject } = require('promise');
 const { MongoClient, ServerApiVersion } = require("mongodb");
-//const { resolve } = require('promise');
 
 const client = new MongoClient(process.env.DATABASE_URL, {
   useNewUrlParser: true,
@@ -28,6 +28,7 @@ const getFlipAllProduct = async (body) => {
     await client.close();
   }
 };
+
 const getFlipProduct = async (body) => {
   console.log("hi i have different products");
   try {
@@ -44,32 +45,20 @@ const getFlipProduct = async (body) => {
     await client.close();
   }
 };
+
+/*
+    This function uses middle-ware express-validator to validate that the request is following the required schema. Came up with this solution since model.save() is calling the DB & collection which doesn't seems fine. So we came to this approach.
+    The expected schema is a middleware that can be seen in routes and this is the ones we are consuming. Others are also expected to follow similar approach.
+*/
+
 const postFlipProduct = async (body) => {
-  console.log("in repo");
-  console.log(body);
-  console.log("you can updates products here");
-  var item = {
-    name: body.name,
-    units: Number(body.units),
-    rating: body.rating,
-    price: Number(body.price),
-    company: body.company,
-  };
-  try {
     await client.connect();
     const db = client.db("flipComInfo");
     const coll = db.collection("flipComInfo");
-    const data = await coll.insertOne(item);
-    // const data2 = await coll.find().toArray();
-    console.log(data);
+    const data = await coll.insertOne(body);
     return data.acknowledged;
-  } catch (err) {
-    console.log("Error occurred");
-    return err;
-  } finally {
-    await client.close();
-  }
 };
+
 /*
     Read about API Responses for different scenarios:
         EX: 404, 201,500
@@ -123,20 +112,24 @@ const deleteFlipProduct = async (body) => {
     2. Update details like add units and change prices.
     3. Why ? => This will be utilized by the Admin of the store.   
     based on product and company -> enhance on the same     
-*/
+*/ 
 const updateFlipProduct = async (body) => {
   console.log(body);
   let searchOptions = {};
   if (body.product != null && body.product !== "") {
     searchOptions.product = body.product;
   }
+  
   console.log("hi i have updated product");
   try {
     await client.connect();
     const db = client.db("flipComInfo");
     const coll = db.collection("flipComInfo");
     const data = await coll.updateOne(searchOptions, {
-      $set: { units: body.units },
+      $set: {$inc:{ units: body.units }},
+    });
+    data=await coll.updateOne(searchOptions,{
+        $set:{price:body.price},
     });
     console.log(data);
   } catch (err) {
@@ -174,6 +167,9 @@ const getFlipSearchProduct = async (body) => {
   let searchOptions = {};
   if (body.name != null && body.name !== "") {
     searchOptions.name = new RegExp(body.name, "i");
+  }
+  if (body.company != null && body.company!== "") {
+    searchOptions.company = new RegExp(body.company, "i");
   }
   // make the same for company name and product name.
   console.log("hi i have updated product");

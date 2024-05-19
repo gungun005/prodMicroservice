@@ -14,14 +14,14 @@ const getFlipProduct = async (req, res) => {
 
 const postFlipProduct = async (req, res) => {
   console.log("in controller");
-  console.log(req.body);
   let postFlipProduct = await flipServices.postFlipProduct(req.body);
   console.log("Response from post call ");
   console.log(postFlipProduct);
-  if (postFlipProduct) {
+  if (postFlipProduct === true) {
     res.sendStatus(201);
   }
-  //res.send(postFlipProduct);
+  else
+    res.send(postFlipProduct);
 };
 
 const deleteFlipProduct = async (req, res) => {
