@@ -6,6 +6,7 @@ exports.productSchemaValidation = [
     check('ratings').isNumeric(),
     check('price').isNumeric(),
     check('company').isString(),
+    check('imageURL').isURL(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
